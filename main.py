@@ -18,6 +18,7 @@ mistakeLoop = False
 answer = ""
 listingOutViaNumbers = 0
 face = 0
+pin = False
 print("_______________________\n|      To Do List     |\n|¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯|\n|       ~ ~~~ ~~~     |\n|       ~~ ~~~~~      |\n|       ~~~~ ~ ~~     |\n|       ~~ ~~~~~      |\n|       ~~ ~~~ ~~     |\n|       ~ ~ ~~~ ~~    |\n|       ~~ ~~~~ ~     |\n|       ~~ ~~~ ~~     |\n|       ~ ~~ ~~~~     |\n|       ~~~~~ ~~      |\n¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯\n")
 while loopvar == True:
     print("\n_________\n| Menu  |\n¯¯¯¯¯¯¯¯¯\n")
@@ -30,6 +31,9 @@ while loopvar == True:
     time.sleep(0.02) 
     print("Quit [q]")
     time.sleep(0.01)
+    if pin:
+        print("pinned:",pin)
+        print()
 
     # your response
     response=input().strip().lower()
@@ -39,10 +43,12 @@ while loopvar == True:
         # wrong answer
         if len(response) > 1 or len(response) < 1:
             print("sorry, but the menu only reads it if you put 1 letter")
+            time.sleep(1)
         else:
             print("thats not one of the options")
             time.sleep(random.randint(3,5))
             print("\ntype in the things in the []'s when in the menu\n\n")
+            time.sleep(1)
     
     elif response in mistake:
         print("is '" + response + "' what you ment to put? [y/n]")
@@ -57,6 +63,7 @@ while loopvar == True:
             if answer == "y":
                 
                 print("ok, taking you back to the menu because that is not one of the options\n\n")
+                time.sleep(1)
                 mistakeLoop = False
             elif answer == "n":
                 print("ok, checking which input would match yours the closest")
@@ -104,11 +111,15 @@ while loopvar == True:
                 removing = input().strip()
                 if removing == "c" or removing == "cancel":
                     print("alright, taking you back to the menu\n\n")
+                    time.sleep(1)
                     removeloop = False
                 else:
                     if removing in toDolist:
                         toDolist.remove(removing)
                         print(removing, "was successfully checked off\n\n")
+                        if removing == pin:
+                            pin = False
+                        time.sleep(1)
                         removeloop=False
                     else:
                         print("\n", "'"+removing+"'","is not on the list currently")
@@ -116,6 +127,7 @@ while loopvar == True:
                     
         else:
             print("there isnt anything on the to-do list rn")
+            time.sleep(1)
     
     elif response == "a":
 
@@ -124,6 +136,7 @@ while loopvar == True:
         varInput = input().strip()
         if varInput == "c" or varInput == "cancel":
             print("alright, raking you back to the menu\n\n")
+            time.sleep(1)
         else:
             if varInput in toDolist:
                 print("thats already on the list\n\n")
@@ -131,6 +144,7 @@ while loopvar == True:
                 toDolist.append(varInput)
                 fullToDoList.append(varInput)
                 print(varInput, "was successfuly addded\n\n")
+                time.sleep(1)
     
     elif response == "c":
         # seeing everything you've added 
@@ -150,6 +164,11 @@ while loopvar == True:
                     else:
                         thing = thing - 1
                         print("\nthis is the one you chose:",toDolist[thing])
+                        print("pinning...")
+                        time.sleep(3)
+                        pin = thing
+                        print(pin,"is now pinned\n\n")
+                        time.sleep(1)
                         finding = False
                 elif thing == "all":
                     print("\nHeres the full list:")
@@ -158,6 +177,7 @@ while loopvar == True:
                         print(f"{listingOutViaNumbers + 1}. {fullToDoList[listingOutViaNumbers]}")
                         listingOutViaNumbers += 1
                         print("\n")
+                        time.sleep(1)
                         finding = False
                 elif thing == "c":
                     print("alright, taking you back to the menu\n\n")
@@ -189,3 +209,4 @@ while loopvar == True:
             print(":c")
         if face==10:
             print(":[")
+        time.sleep(1)
