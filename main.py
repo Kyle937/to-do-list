@@ -9,10 +9,10 @@ removing = ""
 removeloop = False
 fullToDoList = []
 mistake = ["s","z","w","n","k","j","l","t","f","g","d","e","x","v",","," "]
-mistakeAdd = ["s","z"]
+mistakeAdd = ["s","z","q"]
 mistakeShow = ["x","d","v"," "]
 mistakeRemove = ["e","f","t","g"]
-mistakeQuit = ["w"]
+mistakeQuit = ["w","a"]
 mistakeMenu = ["n","j","k","l",","]
 mistakeLoop = False
 answer = ""
@@ -35,14 +35,18 @@ while loopvar == True:
     response=input().strip().lower()
 
     #checking what you put
-    if len(response) > 1 or len(response) < 0 or response != "q" and response != "a" and response != "r" and response != "c" and response != "m" and response not in mistake:
+    if response != "q" and response != "a" and response != "r" and response != "c" and response != "m" and response not in mistake:
         # wrong answer
-        print("thats not one of the options")
-        time.sleep(random.randint(3,5))
-        print("\ntype in the things in the []'s when in the menu\n\n")
+        if len(response) > 1 or len(response) < 1:
+            print("sorry, but the menu only reads it if you put 1 letter")
+        else:
+            print("thats not one of the options")
+            time.sleep(random.randint(3,5))
+            print("\ntype in the things in the []'s when in the menu\n\n")
     
     elif response in mistake:
         print("is '" + response + "' what you ment to put? [y/n]")
+        mistakeLoop = True
         while mistakeLoop == True:
             answer = input().strip().lower()
 
@@ -51,33 +55,30 @@ while loopvar == True:
             elif answer == "no":
                 answer = "n"
             if answer == "y":
-                print("ok, taking you back to the menu because that is not one of the options")
+                
+                print("ok, taking you back to the menu because that is not one of the options\n\n")
                 mistakeLoop = False
             elif answer == "n":
+                print("ok, checking which input would match yours the closest")
                 if response in mistakeQuit:
-                    print("placeholder")
-
+                    response = "q"
                     mistakeLoop = False
                 elif response in mistakeRemove:
-                    print("placeholder")
-
+                    response = "r"
                     mistakeLoop = False
                 elif response in mistakeAdd:
-                    print("placeholder")
-
+                    response = "a"
                     mistakeLoop = False
                 elif response in mistakeShow:
-                    print("placeholder")
-
+                    response = "c"
                     mistakeLoop = False
                 elif response in mistakeMenu:
-                    print("placeholder")
-
+                    response = "m"
                     mistakeLoop = False
             else:
                 print("its a yes/no question")
     
-    elif response == "q":
+    if response == "q":
         if len(fullToDoList)>0:
             print("\n to do list:")
             listingOutViaNumbers=0
