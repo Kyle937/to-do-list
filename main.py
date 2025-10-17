@@ -1,5 +1,14 @@
 import time
 import random
+import os
+import sys
+
+def clear_terminal():
+    if sys.platform.startswith('win32'):
+        os.system('cls')
+    else:
+        os.system('clear')
+clear_terminal()
 loopvar = True
 response = ""
 toDolist = []
@@ -19,9 +28,9 @@ answer = ""
 listingOutViaNumbers = 0
 face = 0
 pin = False
-print("_______________________\n|      To Do List     |\n|¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯|\n|       ~ ~~~ ~~~     |\n|       ~~ ~~~~~      |\n|       ~~~~ ~ ~~     |\n|       ~~ ~~~~~      |\n|       ~~ ~~~ ~~     |\n|       ~ ~ ~~~ ~~    |\n|       ~~ ~~~~ ~     |\n|       ~~ ~~~ ~~     |\n|       ~ ~~ ~~~~     |\n|       ~~~~~ ~~      |\n¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯\n")
 while loopvar == True:
-    print("\n_________\n| Menu  |\n¯¯¯¯¯¯¯¯¯\n")
+    print("_______________________\n|      To Do List     |\n|¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯|\n|       ~ ~~~ ~~~     |\n|       ~~ ~~~~~      |\n|       ~~~~ ~ ~~     |\n|       ~~ ~~~~~      |\n|       ~~ ~~~ ~~     |\n|       ~ ~ ~~~ ~~    |\n|       ~~ ~~~~ ~     |\n|       ~~ ~~~ ~~     |\n|       ~ ~~ ~~~~     |\n|       ~~~~~ ~~      |\n¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯")
+    print("_________\n| Menu  |\n¯¯¯¯¯¯¯¯¯\n")
     time.sleep(0.05)
     print("Add [a]")
     time.sleep(0.04)
@@ -41,16 +50,20 @@ while loopvar == True:
     #checking what you put
     if response != "q" and response != "a" and response != "r" and response != "c" and response != "m" and response not in mistake:
         # wrong answer
+        clear_terminal()
         if len(response) > 1 or len(response) < 1:
             print("sorry, but the menu only reads it if you put 1 letter")
             time.sleep(1)
+            clear_terminal()
         else:
             print("thats not one of the options")
             time.sleep(random.randint(3,5))
             print("\ntype in the things in the []'s when in the menu\n\n")
             time.sleep(1)
+            clear_terminal()
     
     elif response in mistake:
+        clear_terminal()
         print("is '" + response + "' what you ment to put? [y/n]")
         mistakeLoop = True
         while mistakeLoop == True:
@@ -64,9 +77,12 @@ while loopvar == True:
                 
                 print("ok, taking you back to the menu because that is not one of the options\n\n")
                 time.sleep(1)
+                clear_terminal()
                 mistakeLoop = False
             elif answer == "n":
                 print("ok, checking which input would match yours the closest")
+                time.sleep(1)
+                clear_terminal()
                 if response in mistakeQuit:
                     response = "q"
                     mistakeLoop = False
@@ -86,6 +102,7 @@ while loopvar == True:
                 print("its a yes/no question")
     
     if response == "q":
+        clear_terminal()
         if len(fullToDoList)>0:
             print("\n to do list:")
             listingOutViaNumbers=0
@@ -95,9 +112,12 @@ while loopvar == True:
 
         # exiting the code
         print("\nBye, have a good day")
+        time.sleep(1)
+        clear_terminal()
         loopvar=False
     
     elif response == "r":
+        clear_terminal()
         # removing something from the list 
         if len(toDolist)>0:
             print("\nWhat would you like to remove? ('c' or 'cancel' to cancel)")
@@ -112,6 +132,7 @@ while loopvar == True:
                 if removing == "c" or removing == "cancel":
                     print("alright, taking you back to the menu\n\n")
                     time.sleep(1)
+                    clear_terminal()
                     removeloop = False
                 else:
                     if removing in toDolist:
@@ -120,33 +141,42 @@ while loopvar == True:
                         if removing == pin:
                             pin = False
                         time.sleep(1)
+                        clear_terminal()
                         removeloop=False
                     else:
                         print("\n", "'"+removing+"'","is not on the list currently")
                         print("\nplease select something on the list")
+                        time.sleep(1)
+                        clear_terminal()
                     
         else:
             print("there isnt anything on the to-do list rn")
             time.sleep(1)
+            clear_terminal()
     
     elif response == "a":
-
+        clear_terminal()
         # adding something to the list
         print("\nWhat would you like to add? ['c' or 'cancel' to cancel]")
         varInput = input().strip()
         if varInput == "c" or varInput == "cancel":
             print("alright, raking you back to the menu\n\n")
             time.sleep(1)
+            clear_terminal()
         else:
             if varInput in toDolist:
                 print("thats already on the list\n\n")
+                time.sleep(1)
+                clear_terminal()
             else:
                 toDolist.append(varInput)
                 fullToDoList.append(varInput)
                 print(varInput, "was successfuly addded\n\n")
                 time.sleep(1)
+                clear_terminal()
     
     elif response == "c":
+        clear_terminal()
         # seeing everything you've added 
         if len(toDolist)>0:
             print("\nWhich would you like to see? (put the number or 'all', 'c' to cancel)")
@@ -168,7 +198,8 @@ while loopvar == True:
                         time.sleep(3)
                         pin = thing
                         print(pin,"is now pinned\n\n")
-                        time.sleep(1)
+                        time.sleep(3)
+                        clear_terminal()
                         finding = False
                 elif thing == "all":
                     print("\nHeres the full list:")
@@ -177,10 +208,13 @@ while loopvar == True:
                         print(f"{listingOutViaNumbers + 1}. {fullToDoList[listingOutViaNumbers]}")
                         listingOutViaNumbers += 1
                         print("\n")
-                        time.sleep(1)
+                        time.sleep(3)
+                        clear_terminal()
                         finding = False
                 elif thing == "c":
                     print("alright, taking you back to the menu\n\n")
+                    time.sleep(1)
+                    clear_terminal()
                     finding = False
                 else:
                     print("\n'~'\n")
@@ -188,6 +222,7 @@ while loopvar == True:
             print("There isnt anything to do on the list")
     
     elif response == "m":
+        clear_terminal()
         face = random.randint(1,10)
         if face==1:
             print(":/")
@@ -210,3 +245,4 @@ while loopvar == True:
         if face==10:
             print(":[")
         time.sleep(1)
+        clear_terminal()
