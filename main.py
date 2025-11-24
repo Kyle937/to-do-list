@@ -179,36 +179,31 @@ while loopvar == True:
         clear_terminal()
         # seeing everything you've added 
         if len(toDolist)>0:
-            print("\nWhich would you like to see? (put the number or 'all', 'c' to cancel)")
+            print("\nWhich would you like to pin? ('c' to cancel)")
             finding = True
             while finding==True:
-                if len(toDolist) == 1:
-                    print ("\nThere is",len(toDolist),"item on the list")
-                else:
-                    print ("\nThere is",len(toDolist),"items on the list")
+                listingOutViaNumbers = 0
+                while listingOutViaNumbers < len(toDolist):
+                        print(f"{listingOutViaNumbers + 1}. {toDolist[listingOutViaNumbers]}")
+                        listingOutViaNumbers += 1
+                print ("\nPut it's number to pin it")
                 thing = input().strip().lower()
                 if thing.isnumeric():
                     thing = int(thing)
                     if thing > len(toDolist):
                         print("\nThats not on the list")
                     else:
+                        clear_terminal()
                         thing = thing - 1
                         print("\nthis is the one you chose:",toDolist[thing])
+                        time.sleep(1)
+                        clear_terminal()
                         print("pinning...")
                         time.sleep(3)
-                        pin = thing
-                        print(pin,"is now pinned\n\n")
-                        time.sleep(3)
                         clear_terminal()
-                        finding = False
-                elif thing == "all":
-                    print("\nHeres the full list:")
-                    listingOutViaNumbers=0
-                    while listingOutViaNumbers < len(toDolist):
-                        print(f"{listingOutViaNumbers + 1}. {fullToDoList[listingOutViaNumbers]}")
-                        listingOutViaNumbers += 1
-                        print("\n")
-                        time.sleep(3)
+                        pin = toDolist[thing]
+                        print(pin,"is now pinned\n\n")
+                        time.sleep(1)
                         clear_terminal()
                         finding = False
                 elif thing == "c":
